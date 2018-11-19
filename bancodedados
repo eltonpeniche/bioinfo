@@ -1,0 +1,41 @@
+CREATE TABLE Paciente(
+  id_Paciente INT8 NOT NULL,
+  idade INT2 NOT NULL,
+  sexo CHAR(1),
+  cidade VARCHAR(100),
+  pais VARCHAR(100),
+  CONSTRAINT Pk_Paciente PRIMARY KEY (id_Paciente)
+ );
+ 
+ CREATE TABLE Amostra(
+  id_Amostra INT8 NOT NULL,
+  Paciente_id_Paciente INT8 NOT NULL,
+  data DATE,
+  pais_origem VARCHAR(100),
+  origem VARCHAR(100),
+  CONSTRAINT Pk_Amostra PRIMARY KEY (id_Amostra)
+ );
+ 
+CREATE TABLE Sequencia(
+	id_Sequencia INT8 NOT NULL,
+	Amostra_id_Amostra INT8 NOT NULL,
+	regiao_genoma VARCHAR(100),
+	tamanho int2,
+	fasta text,
+	CONSTRAINT Pk_Amostra PRIMARY KEY (id_Sequencia)
+);
+ 
+Alter table Amostra add constraint fk_Amostra foreign key (Paciente_id_Paciente) references Paciente (id_Paciente);
+Alter table Sequencia add constraint fk_Sequencia foreign key (Amostra_id_Amostra) references Amostra (id_Amostra);
+
+insert into paciente values(01, 20, 'm', 'belem', ' brasil');
+insert into paciente values(02, 21, 'f', 'ananideua', 'brasil');
+insert into paciente values(03, 22, 'm', 'belem', ' brasil');
+
+insert into Amostra values(01, 01, '2008-11-11', 'brasil', 'sangue');
+insert into Amostra values(02, 02, '2008-11-12', 'brasil', 'sangue');
+insert into Amostra values(03, 03, '2008-11-13', 'brasil', 'sangue');
+
+insert into Sequencia values(01, 01, 'pol', 200, 'GTCAAAGATCAGATGGTTGTAGATGTGTGGTGTTATTTCTGAAGCCTCTGTTCAAGGAAGGCAGTTTCTTATGAA');
+insert into Sequencia values(02, 02, 'gag', 300, 'GTCAAAGATCAGATGGTTGTAGATGTGTGGTGTTATTTCTGAAGCCTCTGTTCAAGGAAGGCAGTTTCTTATGAA');
+insert into Sequencia values(03, 03, 'env', 250, 'GTCAAAGATCAGATGGTTGTAGATGTGTGGTGTTATTTCTGAAGCCTCTGTTCAAGGAAGGCAGTTTCTTATGAA');
